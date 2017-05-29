@@ -18,7 +18,7 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
     private HomePageContract.Interactor interactor;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public HomePagePresenter(HomePageContract.View view, HomePageContract.Interactor interactor) {
+    public HomePagePresenter(HomePageContract.Interactor interactor) {
         this.view = view;
         this.interactor = interactor;
     }

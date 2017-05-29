@@ -17,8 +17,11 @@ public class HomePageView extends BaseView implements HomePageContract.View {
     @BindView(R.id.text_view_home_page_current_location_name)
     AppCompatTextView textViewCurrentLocationName;
 
-    public HomePageView(Context context) {
-        super(context);
+    private final HomePagePresenter presenter;
+
+    public HomePageView(Context context, HomePagePresenter presenter) {
+        super(context, presenter);
+        this.presenter = presenter;
 
         inflate(getContext(), R.layout.activity_home_page, this);
         ButterKnife.bind(this);

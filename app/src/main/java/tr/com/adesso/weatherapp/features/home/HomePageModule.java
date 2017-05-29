@@ -21,14 +21,14 @@ public class HomePageModule {
 
     @HomePageScope
     @Provides
-    public HomePageView view() {
-        return new HomePageView(context);
+    public HomePageView view(HomePagePresenter presenter) {
+        return new HomePageView(context, presenter);
     }
 
     @HomePageScope
     @Provides
-    public HomePagePresenter presenter(HomePageView view, HomePageInteractor interactor) {
-        return new HomePagePresenter(view, interactor);
+    public HomePagePresenter presenter(HomePageInteractor interactor) {
+        return new HomePagePresenter(interactor);
     }
 
     @HomePageScope

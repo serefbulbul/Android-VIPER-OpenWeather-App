@@ -18,7 +18,6 @@ public class HomePageContract {
 
     }
 
-
     interface Interactor extends BaseContract.Interactor {
         void requestLondonData();
         Observable<WeatherData> getLondonData();

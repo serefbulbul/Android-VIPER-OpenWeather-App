@@ -19,11 +19,13 @@ public abstract class BaseView extends FrameLayout implements BaseContract.View 
 
     protected final Context context;
     private final ProgressViewManager progressViewManager;
+    private final BasePresenter presenter;
 
-    public BaseView(@NonNull Context context) {
+    public BaseView(@NonNull Context context, BasePresenter presenter) {
         super(context);
 
         this.context = context;
+        this.presenter = presenter;
 
         progressViewManager = new ProgressViewManager(context);
     }
