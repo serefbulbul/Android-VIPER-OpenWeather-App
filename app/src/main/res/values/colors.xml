@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#006db8</color>
+    <color name="colorPrimaryDark">#084380</color>
+    <color name="colorAccent">#006db8</color>
+    
+    <!-- General -->
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">@android:color/transparent</color>
+
+    <color name="secure_app">#9bb4de</color>
+    <color name="background_color">#F6F6F6</color>
+
+    <color name="transaction_separator">#e4e6eb</color>
+    <color name="transaction_cell_text">#6c6c6c</color>
+
+    <!-- Buttons -->
+    <color name="button_green">#73ba3a</color>
+    <color name="button_highlight_green">#63aa2a</color>
+    <color name="button_blue">#006db8</color>
+    <color name="button_highlight_blue">#005da8</color>
+    <color name="button_red">#ba3a3a</color>
+    <color name="button_highlight_red">#aa2a2a</color>
+    <color name="button_color">#006db8</color>
+    <color name="button_highlight_color">#005da8</color>
+    <color name="button_transparent_highlight_color">#208dd8</color>
+
+    <!-- Views -->
+    <color name="view_green">#73ba3a</color>
+    <color name="view_blue">#0f2278</color>
+    <color name="view_red">#ba3a3a</color>
+
+    <!-- Text -->
+    <color name="text_black">#000000</color>
+    <color name="text_grey">#7f7f7f</color>
+    <color name="text_blue">#9bb4de</color>
+    <color name="text_dark_grey">#3a3a3a</color>
+
+    <!-- Main BG -->
+    <color name="main_background_white">#ffffff</color>
+    <color name="main_background">#f7f7f7</color>
+
+    <!-- Strokes -->
+    <color name="stroke_start_color">#e2e2e2</color>
+    <color name="stroke_end_color">#e4e6eb</color>
+
+    <!-- Progress Bar -->
+    <color name="progressbar_horizontal_green_color">#73ba3a</color>
+    <color name="progressbar_horizontal_red_color">#ba3a3a</color>
+
+    <!-- Bottom Navigation View -->
+    <color name="bottom_view_tint">#18557f</color>
+
+    <!-- Circular Progress Bar -->
+    <color name="circular_progressbar_end_color">#006db8</color>
+    <color name="circular_progressbar_center_color">#4990e2</color>
+    <color name="circular_progressbar_start_color">#9bb4de</color>
+
+    <!-- Submit Transaction Activity -->
+    <color name="submit_transaction_progress_high">#73ba3a</color>
+    <color name="submit_transaction_progress_low">#ba3a3a</color>
+
+</resources>

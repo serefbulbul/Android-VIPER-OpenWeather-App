@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+apply from: '../jacoco.gradle'
+
+android {
+    compileSdkVersion sdkVersions.compile
+    buildToolsVersion buildVersions.tools
+
+    defaultConfig {
+        applicationId "tr.com.adesso.weatherapp"
+        minSdkVersion sdkVersions.min
+        targetSdkVersion sdkVersions.target
+        versionCode appVersion.code
+        versionName appVersion.name
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile("com.android.support.test.espresso:espresso-core:$libVersions.espresso", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    compile "com.android.support:appcompat-v7:$libVersions.supportLibrary"
+    compile "com.android.support:design:$libVersions.supportLibrary"
+    compile "com.android.support:recyclerview-v7:$libVersions.supportLibrary"
+
+    compile "com.google.dagger:dagger:$libVersions.dagger"
+    annotationProcessor "com.google.dagger:dagger-compiler:$libVersions.dagger"
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    compile "com.google.code.gson:gson:$libVersions.gson"
+
+    compile "com.jakewharton:butterknife:$libVersions.butterknife"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$libVersions.butterknife"
+
+    compile "io.reactivex.rxjava2:rxandroid:$libVersions.rxjava"
+    compile "io.reactivex.rxjava2:rxjava:$libVersions.rxandroid"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$libVersions.retrofitRxjavaAdapter"
+
+    compile "com.squareup.retrofit2:retrofit:$libVersions.retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$libVersions.gsonConverter"
+
+    compile "com.squareup.okhttp3:logging-interceptor:$libVersions.okhttp"
+    compile "com.jakewharton.timber:timber:$libVersions.timber"
+
+    compile "com.jakewharton.rxbinding2:rxbinding:$libVersions.rxBindingVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding-support-v4:$libVersions.rxBindingVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$libVersions.rxBindingVersion"
+    compile "com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:$libVersions.rxBindingVersion"
+
+    testCompile "junit:junit:$libVersions.junit"
+    testCompile "org.mockito:mockito-core:$libVersions.mockito"
+    testCompile "org.robolectric:robolectric:$libVersions.robolectric"
+}

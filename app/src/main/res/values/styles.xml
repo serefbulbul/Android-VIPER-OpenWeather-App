@@ -1,0 +1,109 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDark</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:splitMotionEvents">false</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:background">@color/white</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="NoActionBarTheme" parent="AppTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <style name="TranslucentTheme" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
+    <!-- EditText -->
+
+    <style name="EditTextStyle" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/edit_text_height</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/text_grey</item>
+    </style>
+
+    <!-- TextView -->
+
+    <style name="TextViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextViewStyle.Green" parent="TextViewStyle">
+        <item name="android:textColor">@color/button_color</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewStyle.Blue" parent="TextViewStyle">
+        <item name="android:textSize">@dimen/small_text_size</item>
+        <item name="android:textColor">@color/text_blue</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Buttons -->
+
+    <style name="ButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="ButtonStyle.Transparent" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/button_color</item>
+        <item name="android:textSize">@dimen/normal_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="ButtonTheme">
+        <item name="colorButtonNormal">@color/button_color</item>
+        <item name="colorControlHighlight">@color/button_highlight_color</item>
+    </style>
+
+    <style name="ButtonTheme.Transparent" parent="ButtonTheme">
+        <item name="colorButtonNormal">@color/transparent</item>
+        <item name="colorControlHighlight">@color/transparent</item>
+    </style>
+
+    <style name="ButtonTheme.Red" parent="ButtonTheme">
+        <item name="colorButtonNormal">@color/button_red</item>
+        <item name="colorControlHighlight">@color/button_highlight_red</item>
+    </style>
+
+    <style name="ButtonTheme.Green" parent="ButtonTheme">
+        <item name="colorButtonNormal">@color/button_green</item>
+        <item name="colorControlHighlight">@color/button_highlight_green</item>
+    </style>
+
+</resources>
