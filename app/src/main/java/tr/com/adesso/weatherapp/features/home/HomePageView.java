@@ -35,22 +35,36 @@ public class HomePageView extends BaseView implements HomePageContract.View {
     public HomePageView(Context context) {
         super(context);
 
-        inflate(getContext(), R.layout.activity_home_page, this);
+        rootView = inflate(getContext(), R.layout.activity_home_page, this);
         ButterKnife.bind(this);
     }
 
+    @Override
     public void setCurrentLocationName(String currentLocationName) {
         textViewCurrentLocationName.setText(currentLocationName);
     }
 
+    @Override
     public void setCurrentLocationTemperature(String currentLocationTemperature) {
         textViewCurrentLocationTemperature.setText(currentLocationTemperature);
     }
 
+    @Override
+    public void setSomeText(String text) {
+        editTextSomeText.setText(text);
+    }
+
+    @Override
+    public String getSomeText() {
+        return editTextSomeText.getText().toString();
+    }
+
+    @Override
     public Observable<CharSequence> onSomeTextChange() {
         return RxTextView.textChanges(editTextSomeText);
     }
 
+    @Override
     public Observable<Object> onSomeButtonClick() {
         return RxView.clicks(buttonSomeButton);
     }

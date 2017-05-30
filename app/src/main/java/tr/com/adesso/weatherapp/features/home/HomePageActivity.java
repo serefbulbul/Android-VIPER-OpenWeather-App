@@ -25,7 +25,7 @@ public class HomePageActivity extends AppCompatActivity {
                 .appComponent(App.get(this).component())
                 .build().inject(this);
 
-        setContentView(view);
+        setContentView(view.getRootView());
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

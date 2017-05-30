@@ -12,6 +12,16 @@ public interface HomePageContract {
 
     interface View extends BaseContract.View {
         void setCurrentLocationName(String currentLocationName);
+
+        void setCurrentLocationTemperature(String currentLocationTemperature);
+
+        void setSomeText(String text);
+
+        String getSomeText();
+
+        Observable<CharSequence> onSomeTextChange();
+
+        Observable<Object> onSomeButtonClick();
     }
 
     interface Presenter extends BaseContract.Presenter {
@@ -19,7 +29,6 @@ public interface HomePageContract {
     }
 
     interface Interactor extends BaseContract.Interactor {
-        void requestLondonData();
-        Observable<WeatherData> getLondonData();
+        Observable<WeatherData> getWeatherData(String city);
     }
 }
