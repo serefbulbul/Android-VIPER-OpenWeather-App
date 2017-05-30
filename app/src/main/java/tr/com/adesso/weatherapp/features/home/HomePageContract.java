@@ -15,6 +15,8 @@ public class HomePageContract {
     }
 
     interface Presenter extends BaseContract.Presenter {
+        void setInput(Observable<CharSequence> onSomeTextChange, Observable<Object> onSomeButtonClick);
+
         Observable<String> getWeatherDataName();
         Observable<String> getWeatherDataTemperature();
     }

@@ -21,4 +21,16 @@
         android:textSize="20sp"
         android:text="30" />
 
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edit_text_home_page_some_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Some text"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_home_page_some_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Some button"/>
+
 </LinearLayout>

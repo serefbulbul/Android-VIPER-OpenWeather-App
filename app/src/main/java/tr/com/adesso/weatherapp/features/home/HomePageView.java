@@ -1,12 +1,15 @@
 package tr.com.adesso.weatherapp.features.home;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
+
+import com.jakewharton.rxbinding2.view.RxView;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BaseView;
 
@@ -22,6 +25,12 @@ public class HomePageView extends BaseView implements HomePageContract.View {
     @BindView(R.id.text_view_home_page_current_location_temperature)
     AppCompatTextView textViewCurrentLocationTemperature;
 
+    @BindView(R.id.edit_text_home_page_some_text)
+    AppCompatEditText editTextSomeText;
+
+    @BindView(R.id.button_home_page_some_button)
+    AppCompatButton buttonSomeButton;
+
     private final HomePageContract.Presenter presenter;
 
     public HomePageView(Context context, HomePageContract.Presenter presenter) {
@@ -36,27 +45,9 @@ public class HomePageView extends BaseView implements HomePageContract.View {
     public void subscribe() {
         super.subscribe();
 
-        compositeDisposable.add(observeWeatherDataName());
-        compositeDisposable.add(observeWeatherDataTemperature());
-    }
+        compositeDisposable.add(presenter.getWeatherDataName().subscribe(RxTextView.text(textViewCurrentLocationName)));
+        compositeDisposable.add(presenter.getWeatherDataTemperature().subscribe(RxTextView.text(textViewCurrentLocationTemperature)));
 
-    private Disposable observeWeatherDataName() {
-        return presenter.getWeatherDataName()
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        textViewCurrentLocationName.setText(s);
-                    }
-                });
-    }
-
-    private Disposable observeWeatherDataTemperature() {
-        return presenter.getWeatherDataTemperature()
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        textViewCurrentLocationTemperature.setText(s);
-                    }
-                });
+        presenter.setInput(RxTextView.textChanges(editTextSomeText), RxView.clicks(buttonSomeButton));
     }
 }

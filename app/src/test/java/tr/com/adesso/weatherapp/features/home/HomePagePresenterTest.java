@@ -27,6 +27,8 @@ public class HomePagePresenterTest {
     public void setUp() throws Exception {
         interactor = Mockito.mock(HomePageInteractor.class);
         presenter = new HomePagePresenter(interactor);
+
+        Mockito.when(presenter.getOnSomeTextChange()).thenReturn(Observable.<String>never());
     }
 
     @After
