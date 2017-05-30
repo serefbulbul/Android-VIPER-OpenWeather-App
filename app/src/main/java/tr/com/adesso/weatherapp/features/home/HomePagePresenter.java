@@ -1,10 +1,9 @@
 package tr.com.adesso.weatherapp.features.home;
 
-import android.util.Log;
-
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.subjects.PublishSubject;
 import tr.com.adesso.weatherapp.features.base.BasePresenter;
 import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
 
@@ -14,39 +13,46 @@ import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
 
 public class HomePagePresenter extends BasePresenter implements HomePageContract.Presenter {
 
-    private HomePageContract.View view;
     private HomePageContract.Interactor interactor;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+
+    private PublishSubject<String> weatherDataName = PublishSubject.create();
+    private PublishSubject<String> weatherDataTemperature = PublishSubject.create();
 
     public HomePagePresenter(HomePageContract.Interactor interactor) {
-        this.view = view;
         this.interactor = interactor;
     }
 
+    @Override
     public void subscribe() {
-        compositeDisposable.add(getLondonData());
-
-        view.showProgressView();
-        interactor.requestLondonData();
+        progress.onNext(true);
+        compositeDisposable.add(observeLondonData());
     }
 
+    @Override
     public void unsubscribe() {
         compositeDisposable.clear();
     }
 
-    private Disposable getLondonData() {
-        return interactor.getLondonData()
+    @Override
+    public Observable<String> getWeatherDataName() {
+        return weatherDataName;
+    }
+
+    @Override
+    public Observable<String> getWeatherDataTemperature() {
+        return weatherDataTemperature;
+    }
+
+    private Disposable observeLondonData() {
+        return interactor.observeLondonData()
                 .subscribe(new Consumer<WeatherData>() {
                     @Override
                     public void accept(WeatherData weatherData) throws Exception {
-                        Log.e("Current Weather", weatherData.getWeather()
-                                .get(0)
-                                .getDescription());
+                        weatherDataName.onNext(weatherData.getName());
+                        weatherDataTemperature.onNext(String.valueOf(weatherData.getMain().getTemp()));
 
-                        view.setCurrentLocationName(weatherData.getName());
-                        view.hideProgressView();
+                        progress.onNext(false);
                     }
                 });
     }
-
 }

@@ -11,15 +11,15 @@ import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
 public class HomePageContract {
 
     interface View extends BaseContract.View {
-        void setCurrentLocationName(String currentLocationName);
+
     }
 
     interface Presenter extends BaseContract.Presenter {
-
+        Observable<String> getWeatherDataName();
+        Observable<String> getWeatherDataTemperature();
     }
 
     interface Interactor extends BaseContract.Interactor {
-        void requestLondonData();
-        Observable<WeatherData> getLondonData();
+        Observable<WeatherData> observeLondonData();
     }
 }

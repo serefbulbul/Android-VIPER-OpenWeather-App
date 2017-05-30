@@ -11,10 +11,10 @@ import tr.com.adesso.weatherapp.app.App;
 public class HomePageActivity extends AppCompatActivity {
 
     @Inject
-    HomePagePresenter presenter;
+    HomePageContract.Presenter presenter;
 
     @Inject
-    HomePageView view;
+    HomePageContract.View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class HomePageActivity extends AppCompatActivity {
                 .appComponent(App.get(this).component())
                 .build().inject(this);
 
-        setContentView(view);
+        setContentView(view.getRootView());
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -35,6 +35,7 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        view.subscribe();
         presenter.subscribe();
     }
 
@@ -43,6 +44,7 @@ public class HomePageActivity extends AppCompatActivity {
         super.onPause();
 
         presenter.unsubscribe();
+        view.unsubscribe();
     }
 }
 

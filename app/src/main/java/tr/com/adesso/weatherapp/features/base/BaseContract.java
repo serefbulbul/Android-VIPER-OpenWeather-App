@@ -3,6 +3,8 @@ package tr.com.adesso.weatherapp.features.base;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import io.reactivex.Observable;
+
 /**
  * Created by serefbulbul on 29/05/2017.
  */
@@ -10,6 +12,12 @@ import android.content.DialogInterface;
 public interface BaseContract {
 
     interface View {
+        android.view.View getRootView();
+
+        void subscribe();
+
+        void unsubscribe();
+
         void showActionBar(Context context);
 
         void hideActionBar(Context context);
@@ -20,13 +28,15 @@ public interface BaseContract {
 
         void hideProgressView();
 
-        void showAlert(String title, String message, String negativeTitle, DialogInterface.OnClickListener negativeAction, String positiveTitle, DialogInterface.OnClickListener positiveAction);
+        void showAlert(Object title, Object message, Object negativeTitle, DialogInterface.OnClickListener negativeAction, Object positiveTitle, DialogInterface.OnClickListener positiveAction);
     }
 
     interface Presenter {
         void subscribe();
 
         void unsubscribe();
+
+        Observable<Boolean> getProgress();
     }
 
     interface Interactor {
