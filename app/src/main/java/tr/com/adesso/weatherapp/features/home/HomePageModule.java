@@ -21,19 +21,19 @@ public class HomePageModule {
 
     @HomePageScope
     @Provides
-    public HomePageView view() {
+    public HomePageContract.View view() {
         return new HomePageView(context);
     }
 
     @HomePageScope
     @Provides
-    public HomePagePresenter presenter(HomePageView view, HomePageInteractor interactor) {
+    public HomePageContract.Presenter presenter(HomePageContract.View view, HomePageContract.Interactor interactor) {
         return new HomePagePresenter(view, interactor);
     }
 
     @HomePageScope
     @Provides
-    public HomePageInteractor interactor(OpenWeatherService openWeatherService) {
+    public HomePageContract.Interactor interactor(OpenWeatherService openWeatherService) {
         return new HomePageInteractor(openWeatherService);
     }
 }

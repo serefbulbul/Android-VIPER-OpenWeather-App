@@ -30,6 +30,7 @@ public class HomePageInteractor extends BaseInteractor implements HomePageContra
                 londonData.onNext(weatherData);
             }
         });
+
     }
 
     @Override

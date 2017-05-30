@@ -11,10 +11,10 @@ import tr.com.adesso.weatherapp.app.App;
 public class HomePageActivity extends AppCompatActivity {
 
     @Inject
-    HomePagePresenter presenter;
+    HomePageContract.Presenter presenter;
 
     @Inject
-    HomePageView view;
+    HomePageContract.View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

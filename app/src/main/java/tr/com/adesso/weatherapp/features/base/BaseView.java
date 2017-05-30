@@ -3,9 +3,9 @@ package tr.com.adesso.weatherapp.features.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import tr.com.adesso.weatherapp.utils.managers.AlertViewManager;
@@ -19,6 +19,7 @@ public abstract class BaseView extends FrameLayout implements BaseContract.View 
 
     protected final Context context;
     private final ProgressViewManager progressViewManager;
+    private View rootView;
 
     public BaseView(@NonNull Context context) {
         super(context);
@@ -38,6 +39,11 @@ public abstract class BaseView extends FrameLayout implements BaseContract.View 
     public void hideActionBar(Context context) {
         ((AppCompatActivity) context).getSupportActionBar().setShowHideAnimationEnabled(false);
         ((AppCompatActivity) context).getSupportActionBar().hide();
+    }
+
+    @Override
+    public View getRootView() {
+        return rootView;
     }
 
     @Override

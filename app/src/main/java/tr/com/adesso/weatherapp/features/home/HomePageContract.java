@@ -8,7 +8,7 @@ import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
  * Created by serefbulbul on 29/05/2017.
  */
 
-public class HomePageContract {
+public interface HomePageContract {
 
     interface View extends BaseContract.View {
         void setCurrentLocationName(String currentLocationName);
@@ -17,7 +17,6 @@ public class HomePageContract {
     interface Presenter extends BaseContract.Presenter {
 
     }
-
 
     interface Interactor extends BaseContract.Interactor {
         void requestLondonData();

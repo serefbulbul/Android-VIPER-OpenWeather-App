@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 public interface BaseContract {
 
     interface View {
+        View getRootView();
+
         void showActionBar(Context context);
 
         void hideActionBar(Context context);
