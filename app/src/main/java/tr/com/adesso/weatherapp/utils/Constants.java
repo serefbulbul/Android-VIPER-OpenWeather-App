@@ -10,7 +10,7 @@ public final class Constants {
 
     }
 
-    public static final String TIMBER = "TIMBER";
+    public static final String TIMBER_LOG = "TIMBER_LOG";
     public static final String HTTP_CACHE_DIR = "okhttp_cache";
     public static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; //10MB
 }

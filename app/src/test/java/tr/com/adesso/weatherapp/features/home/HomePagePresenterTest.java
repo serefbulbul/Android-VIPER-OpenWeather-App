@@ -13,8 +13,6 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
-import tr.com.adesso.weatherapp.utils.services.models.Main;
-import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
 
 /**
  * Created by serefbulbul on 30/05/2017.
@@ -41,7 +39,7 @@ public class HomePagePresenterTest {
         interactor = Mockito.mock(HomePageContract.Interactor.class);
         presenter = new HomePagePresenter(view, interactor);
 
-        Mockito.when(interactor.getWeatherData(Mockito.anyString())).thenReturn(Observable.<WeatherData>never());
+        Mockito.when(interactor.getWeatherData(Mockito.anyString())).thenReturn(Observable.<HomePagePresenterModel>never());
         Mockito.when(view.onSomeTextChange()).thenReturn(Observable.<CharSequence>never());
         Mockito.when(view.onSomeButtonClick()).thenReturn(Observable.never());
     }
@@ -53,21 +51,15 @@ public class HomePagePresenterTest {
 
     @Test
     public void testObserveContinueButtonClick_emptyPassword() throws Exception {
-        WeatherData weatherData = new WeatherData();
-        weatherData.setName("London");
-
-        Main main = new Main();
-        main.setTemp(18.0);
-
-        weatherData.setMain(main);
+        HomePagePresenterModel presenterModel = new HomePagePresenterModel("London", 18.0);
 
         Mockito.when(view.onSomeButtonClick()).thenReturn(Observable.just(new Object()));
-        Mockito.when(interactor.getWeatherData(Mockito.anyString())).thenReturn(Observable.just(weatherData));
+        Mockito.when(interactor.getWeatherData(Mockito.anyString())).thenReturn(Observable.just(presenterModel));
 
         presenter.subscribe();
 
-        Mockito.verify(view, Mockito.times(1)).setCurrentLocationName("London");
-        Mockito.verify(view, Mockito.times(1)).setCurrentLocationTemperature("18.0");
-        Mockito.verify(view, Mockito.times(1)).hideProgressView();
+        Mockito.verify(view, Mockito.times(2)).setCurrentLocationName("London");
+        Mockito.verify(view, Mockito.times(2)).setCurrentLocationTemperature("18.0");
+        Mockito.verify(view, Mockito.times(3)).hideProgressView();
     }
 }

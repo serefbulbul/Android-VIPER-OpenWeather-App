@@ -32,7 +32,7 @@ public class App extends Application {
             Timber.plant(new Timber.DebugTree(){
                 @Override
                 protected void log(int priority, String tag, String message, Throwable t) {
-                    super.log(priority, Constants.TIMBER, message, t);
+                    super.log(priority, Constants.TIMBER_LOG, message, t);
                 }
             });
         }

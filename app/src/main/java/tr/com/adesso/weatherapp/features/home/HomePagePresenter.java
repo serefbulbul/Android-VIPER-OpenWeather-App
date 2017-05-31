@@ -1,16 +1,10 @@
 package tr.com.adesso.weatherapp.features.home;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BasePresenter;
 import tr.com.adesso.weatherapp.utils.ValidationResult;
-import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
 
 /**
  * Created by batuhan on 18/05/2017.
@@ -20,7 +14,6 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
 
     private HomePageContract.View view;
     private HomePageContract.Interactor interactor;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
     private Observable<ValidationResult> someTextValidation;
 
     public HomePagePresenter(HomePageContract.View view, HomePageContract.Interactor interactor) {
@@ -44,82 +37,50 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
 
     private void observeValidations() {
         someTextValidation = view.onSomeTextChange()
-                .map(new Function<CharSequence, ValidationResult>() {
-                    @Override
-                    public ValidationResult apply(CharSequence charSequence) throws Exception {
-                        if (charSequence.length() > 0) {
-                            return new ValidationResult(true);
-                        } else {
-                            return new ValidationResult(false, R.string.app_name);
-                        }
+                .map(charSequence -> {
+                    if (charSequence.length() > 0) {
+                        return new ValidationResult(true);
+                    } else {
+                        return new ValidationResult(false, R.string.app_name);
                     }
                 });
     }
 
     private void getLondonData() {
         interactor.getWeatherData("London")
-                .doOnNext(new Consumer<WeatherData>() {
-                    @Override
-                    public void accept(WeatherData weatherData) throws Exception {
-                        view.showProgressView();
-                    }
-                })
-                .subscribe(new Consumer<WeatherData>() {
-                    @Override
-                    public void accept(WeatherData weatherData) throws Exception {
-                        view.setCurrentLocationName(weatherData.getName());
-                        view.setCurrentLocationTemperature(String.valueOf(weatherData.getMain().getTemp()));
-                        view.hideProgressView();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
+                .doOnNext(presenterModel -> view.showProgressView())
+                .subscribe(presenterModel -> {
+                    view.setCurrentLocationName(presenterModel.getName());
+                    view.setCurrentLocationTemperature(String.valueOf(presenterModel.getTemp()));
+                    view.hideProgressView();
+                }, throwable -> {
 
-                    }
-                }, new Action() {
-                    @Override
-                    public void run() throws Exception {
+                }, () -> {
 
-                    }
                 }).dispose();
     }
 
     private Disposable observeSomeTextValidation() {
         return someTextValidation
-                .subscribe(new Consumer<ValidationResult>() {
-                    @Override
-                    public void accept(ValidationResult validationResult) throws Exception {
+                .subscribe(validationResult -> {
 
-                    }
                 });
     }
 
     private Disposable observeOnSomeButtonClick() {
         return view.onSomeButtonClick()
-                .doOnNext(new Consumer<Object>() {
-                    @Override
-                    public void accept(Object o) throws Exception {
-                        view.showProgressView();
-                    }
-                })
-                .switchMap(new Function<Object, ObservableSource<WeatherData>>() {
-                    @Override
-                    public ObservableSource<WeatherData> apply(Object o) throws Exception {
-                        return interactor.getWeatherData(view.getSomeText());
-                    }
-                })
-                .subscribe(new Consumer<WeatherData>() {
-                    @Override
-                    public void accept(WeatherData weatherData) throws Exception {
-                        view.setCurrentLocationName(weatherData.getName());
-                        view.setCurrentLocationTemperature(String.valueOf(weatherData.getMain().getTemp()));
-                        view.hideProgressView();
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
+                .doOnNext(o -> view.showProgressView())
+                .switchMap(o -> interactor.getWeatherData(view.getSomeText()))
+                .doOnEach(homePagePresenterModelNotification -> view.hideProgressView())
+                .retry()
+                .subscribe(presenterModel -> {
+                    view.setCurrentLocationName(presenterModel.getName());
+                    view.setCurrentLocationTemperature(String.valueOf(presenterModel.getTemp()));
+                }, throwable -> {
+                    view.showAlert("Error", "Request failed.", "OK", null, null, null);
+                    view.hideProgressView();
+                }, () -> {
 
-                    }
                 });
     }
 }
