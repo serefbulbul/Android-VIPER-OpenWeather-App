@@ -1,7 +1,5 @@
 package tr.com.adesso.weatherapp.features.home;
 
-import android.util.Log;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.disposables.CompositeDisposable;
@@ -69,10 +67,6 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
                 .subscribe(new Consumer<WeatherData>() {
                     @Override
                     public void accept(WeatherData weatherData) throws Exception {
-                        Log.e("Current Weather", weatherData.getWeather()
-                                .get(0)
-                                .getDescription());
-
                         view.setCurrentLocationName(weatherData.getName());
                         view.setCurrentLocationTemperature(String.valueOf(weatherData.getMain().getTemp()));
                         view.hideProgressView();
@@ -91,12 +85,13 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
     }
 
     private Disposable observeSomeTextValidation() {
-        return someTextValidation.subscribe(new Consumer<ValidationResult>() {
-            @Override
-            public void accept(ValidationResult validationResult) throws Exception {
+        return someTextValidation
+                .subscribe(new Consumer<ValidationResult>() {
+                    @Override
+                    public void accept(ValidationResult validationResult) throws Exception {
 
-            }
-        });
+                    }
+                });
     }
 
     private Disposable observeOnSomeButtonClick() {
