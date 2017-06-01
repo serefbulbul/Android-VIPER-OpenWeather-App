@@ -2,6 +2,7 @@ package tr.com.adesso.weatherapp.features.home;
 
 import io.reactivex.Observable;
 import tr.com.adesso.weatherapp.features.base.BaseContract;
+import tr.com.adesso.weatherapp.utils.ServiceResult;
 
 /**
  * Created by serefbulbul on 29/05/2017.
@@ -28,6 +29,6 @@ public interface HomePageContract {
     }
 
     interface Interactor extends BaseContract.Interactor {
-        Observable<HomePagePresenterModel> getWeatherData(String city);
+        Observable<ServiceResult<HomePagePresenterModel>> getWeatherData(String city);
     }
 }

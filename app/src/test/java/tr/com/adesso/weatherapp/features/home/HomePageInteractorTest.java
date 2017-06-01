@@ -6,6 +6,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +17,7 @@ import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
+import tr.com.adesso.weatherapp.utils.ServiceResult;
 import tr.com.adesso.weatherapp.utils.services.OpenWeatherService;
 import tr.com.adesso.weatherapp.utils.services.models.Main;
 import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
@@ -64,18 +67,18 @@ public class HomePageInteractorTest {
 
         Mockito.when(openWeatherService.getWeatherData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(Observable.just(weatherData));
 
-        final HomePagePresenterModel[] responsePresenterModel = new HomePagePresenterModel[1];
+        final List<ServiceResult<HomePagePresenterModel>> results = new ArrayList<>();
 
         interactor.getWeatherData("asd")
-                .subscribe(presenterModel -> {
-                    responsePresenterModel[0] = presenterModel;
+                .subscribe(result -> {
+                    results.add(result);
 
                     signal.countDown();
                 });
 
         signal.await(5, TimeUnit.SECONDS);
 
-        assertEquals(responsePresenterModel[0].getName(), weatherData.getName());
-        assertEquals(responsePresenterModel[0].getTemp(), weatherData.getMain().getTemp());
+        assertEquals(results.get(0).getData().getName(), weatherData.getName());
+        assertEquals(results.get(0).getData().getTemp(), weatherData.getMain().getTemp());
     }
 }

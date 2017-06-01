@@ -1,9 +1,13 @@
 package tr.com.adesso.weatherapp.features.home;
 
+import java.util.concurrent.TimeUnit;
+
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BasePresenter;
+import tr.com.adesso.weatherapp.utils.Constants;
 import tr.com.adesso.weatherapp.utils.ValidationResult;
 
 /**
@@ -49,10 +53,14 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
     private void getLondonData() {
         interactor.getWeatherData("London")
                 .doOnNext(presenterModel -> view.showProgressView())
-                .subscribe(presenterModel -> {
-                    view.setCurrentLocationName(presenterModel.getName());
-                    view.setCurrentLocationTemperature(String.valueOf(presenterModel.getTemp()));
-                    view.hideProgressView();
+                .subscribe(result -> {
+                    if (result.getData() != null) {
+                        view.setCurrentLocationName(result.getData().getName());
+                        view.setCurrentLocationTemperature(String.valueOf(result.getData().getTemp()));
+                        view.hideProgressView();
+                    } else {
+                        view.showAlert("ADSError", "Request failed.", "OK", null, null, null);
+                    }
                 }, throwable -> {
 
                 }, () -> {
@@ -69,18 +77,17 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
 
     private Disposable observeOnSomeButtonClick() {
         return view.onSomeButtonClick()
+                .throttleFirst(Constants.THROTTLE_TIME_IN_MILLISECONDS, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
                 .doOnNext(o -> view.showProgressView())
-                .switchMap(o -> interactor.getWeatherData(view.getSomeText()))
-                .doOnEach(homePagePresenterModelNotification -> view.hideProgressView())
-                .retry()
-                .subscribe(presenterModel -> {
-                    view.setCurrentLocationName(presenterModel.getName());
-                    view.setCurrentLocationTemperature(String.valueOf(presenterModel.getTemp()));
-                }, throwable -> {
-                    view.showAlert("Error", "Request failed.", "OK", null, null, null);
-                    view.hideProgressView();
-                }, () -> {
-
+                .flatMap(o -> interactor.getWeatherData(view.getSomeText()))
+                .doOnNext(result -> view.hideProgressView())
+                .subscribe(result -> {
+                    if (result.getData() != null) {
+                        view.setCurrentLocationName(result.getData().getName());
+                        view.setCurrentLocationTemperature(String.valueOf(result.getData().getTemp()));
+                    } else {
+                        view.showAlert(String.valueOf(result.getError().getErrorCode()), result.getError().getErrorMessage(), "OK", null, null, null);
+                    }
                 });
     }
 }
