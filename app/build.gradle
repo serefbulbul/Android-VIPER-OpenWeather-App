@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'
 
 apply from: '../jacoco.gradle'
 
@@ -54,6 +55,9 @@ dependencies {
 
     compile "com.squareup.retrofit2:retrofit:$libVersions.retrofit"
     compile "com.squareup.retrofit2:converter-gson:$libVersions.gsonConverter"
+
+    compile "org.parceler:parceler-api:$libVersions.parceler"
+    annotationProcessor "org.parceler:parceler:$libVersions.parceler"
 
     compile "com.squareup.okhttp3:logging-interceptor:$libVersions.okhttp"
     compile "com.jakewharton.timber:timber:$libVersions.timber"

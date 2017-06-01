@@ -4,7 +4,8 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
-import tr.com.adesso.weatherapp.utils.services.OpenWeatherService;
+import tr.com.adesso.weatherapp.utils.services.NetworkService;
+import tr.com.adesso.weatherapp.utils.services.realm.RealmService;
 
 /**
  * Created by batuhan on 25/05/2017.
@@ -33,7 +34,7 @@ public class HomePageModule {
 
     @HomePageScope
     @Provides
-    public HomePageContract.Interactor interactor(OpenWeatherService openWeatherService) {
-        return new HomePageInteractor(openWeatherService);
+    public HomePageContract.Interactor interactor(NetworkService networkService, RealmService realmService) {
+        return new HomePageInteractor(networkService, realmService);
     }
 }

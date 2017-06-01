@@ -21,7 +21,7 @@ import tr.com.adesso.weatherapp.utils.Constants;
  */
 
 @Module
-public class OpenWeatherServiceModule {
+public class NetworkModule {
 
     @AppScope
     @Provides
@@ -33,12 +33,7 @@ public class OpenWeatherServiceModule {
     @AppScope
     @Provides
     public HttpLoggingInterceptor httpLoggingInterceptor() {
-        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
-                Timber.d(message);
-            }
-        });
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(message -> Timber.d(message));
 
         return httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
     }
@@ -65,7 +60,7 @@ public class OpenWeatherServiceModule {
 
     @AppScope
     @Provides
-    public OpenWeatherService openWeatherService(Retrofit retrofit) {
-        return retrofit.create(OpenWeatherService.class);
+    public NetworkService openWeatherService(Retrofit retrofit) {
+        return retrofit.create(NetworkService.class);
     }
 }

@@ -20,6 +20,10 @@ public class ServiceResult<T> {
         this.error = error;
     }
 
+    public boolean isSuccess() {
+        return data == null ? false : true;
+    }
+
     public ServiceResult(Throwable throwable) {
         error = new ADSError(throwable);
     }

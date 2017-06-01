@@ -8,19 +8,18 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
-import tr.com.adesso.weatherapp.utils.services.OpenWeatherService;
+import tr.com.adesso.weatherapp.utils.services.NetworkService;
 import tr.com.adesso.weatherapp.utils.services.models.Main;
 import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
+import tr.com.adesso.weatherapp.utils.services.realm.RealmService;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -29,23 +28,20 @@ import static junit.framework.Assert.assertEquals;
  */
 public class HomePageInteractorTest {
 
+    private NetworkService networkService;
+    private RealmService realmService;
     private HomePageInteractor interactor;
-    private OpenWeatherService openWeatherService;
 
     @BeforeClass
     public static void setupClass() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(new Function<Callable<Scheduler>, Scheduler>() {
-            @Override
-            public Scheduler apply(Callable<Scheduler> schedulerCallable) throws Exception {
-                return Schedulers.trampoline();
-            }
-        });
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
     }
 
     @Before
     public void setUp() throws Exception {
-        openWeatherService = Mockito.mock(OpenWeatherService.class);
-        interactor = new HomePageInteractor(openWeatherService);
+        networkService = Mockito.mock(NetworkService.class);
+        realmService = Mockito.mock(RealmService.class);
+        interactor = new HomePageInteractor(networkService, realmService);
     }
 
     @After
@@ -65,9 +61,13 @@ public class HomePageInteractorTest {
 
         weatherData.setMain(main);
 
-        Mockito.when(openWeatherService.getWeatherData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(Observable.just(weatherData));
+        Person person = new Person();
+        person.setName("asd");
 
-        final List<ServiceResult<HomePagePresenterModel>> results = new ArrayList<>();
+        Mockito.when(networkService.getWeatherData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(Observable.just(weatherData));
+        Mockito.when(realmService.getPerson(Mockito.anyString())).thenReturn(person);
+
+        final List<ServiceResult<WeatherData>> results = new ArrayList<>();
 
         interactor.getWeatherData("asd")
                 .subscribe(result -> {
@@ -79,6 +79,6 @@ public class HomePageInteractorTest {
         signal.await(5, TimeUnit.SECONDS);
 
         assertEquals(results.get(0).getData().getName(), weatherData.getName());
-        assertEquals(results.get(0).getData().getTemp(), weatherData.getMain().getTemp());
+        assertEquals(results.get(0).getData().getMain().getTemp(), weatherData.getMain().getTemp());
     }
 }

@@ -6,14 +6,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.util.concurrent.Callable;
-
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
+import tr.com.adesso.weatherapp.utils.services.models.Main;
+import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
 
 /**
  * Created by serefbulbul on 30/05/2017.
@@ -26,12 +25,7 @@ public class HomePagePresenterTest {
 
     @BeforeClass
     public static void setupClass() {
-        RxAndroidPlugins.setInitMainThreadSchedulerHandler(new Function<Callable<Scheduler>, Scheduler>() {
-            @Override
-            public Scheduler apply(Callable<Scheduler> schedulerCallable) throws Exception {
-                return Schedulers.trampoline();
-            }
-        });
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
     }
 
     @Before
@@ -52,10 +46,23 @@ public class HomePagePresenterTest {
 
     @Test
     public void testObserveContinueButtonClick_emptyPassword() throws Exception {
-        ServiceResult<HomePagePresenterModel> result = new ServiceResult<>(new HomePagePresenterModel("London", 18.0));
+        WeatherData weatherData = new WeatherData();
+        weatherData.setName("London");
+
+        Main main = new Main();
+        main.setTemp(18.0);
+
+        weatherData.setMain(main);
+
+        ServiceResult<WeatherData> result = new ServiceResult<>(weatherData);
 
         Mockito.when(view.onSomeButtonClick()).thenReturn(Observable.just(new Object()));
         Mockito.when(interactor.getWeatherData(Mockito.anyString())).thenReturn(Observable.just(result));
+
+        Person person = new Person();
+        person.setName("asd");
+
+        Mockito.when(interactor.getPerson(Mockito.anyString())).thenReturn(person);
 
         presenter.subscribe();
 

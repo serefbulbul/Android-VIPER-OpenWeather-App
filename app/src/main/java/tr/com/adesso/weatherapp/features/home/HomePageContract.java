@@ -3,6 +3,8 @@ package tr.com.adesso.weatherapp.features.home;
 import io.reactivex.Observable;
 import tr.com.adesso.weatherapp.features.base.BaseContract;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
+import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
 
 /**
  * Created by serefbulbul on 29/05/2017.
@@ -29,6 +31,10 @@ public interface HomePageContract {
     }
 
     interface Interactor extends BaseContract.Interactor {
-        Observable<ServiceResult<HomePagePresenterModel>> getWeatherData(String city);
+        Observable<ServiceResult<WeatherData>> getWeatherData(String city);
+
+        void createPerson(String name);
+
+        Person getPerson(String name);
     }
 }

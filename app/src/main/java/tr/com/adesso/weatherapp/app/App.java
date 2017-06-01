@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+import io.realm.Realm;
 import timber.log.Timber;
 import tr.com.adesso.weatherapp.BuildConfig;
 import tr.com.adesso.weatherapp.utils.Constants;
@@ -42,6 +43,8 @@ public class App extends Application {
                 .build();
 
         activityCount = 0;
+
+        Realm.init(getApplicationContext());
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override

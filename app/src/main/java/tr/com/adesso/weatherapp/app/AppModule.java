@@ -20,7 +20,7 @@ public class AppModule {
 
     @AppScope
     @Provides
-    public Context provideContext() {
+    public Context context() {
         return context;
     }
 }

@@ -1,5 +1,7 @@
 package tr.com.adesso.weatherapp.features.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,12 @@ public class HomePageActivity extends AppCompatActivity {
 
     @Inject
     HomePageContract.View view;
+
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, HomePageActivity.class);
+//        intent.putExtra("", "");
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

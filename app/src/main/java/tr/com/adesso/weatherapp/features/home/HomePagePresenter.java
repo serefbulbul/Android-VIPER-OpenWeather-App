@@ -9,6 +9,7 @@ import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BasePresenter;
 import tr.com.adesso.weatherapp.utils.Constants;
 import tr.com.adesso.weatherapp.utils.ValidationResult;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
 
 /**
  * Created by batuhan on 18/05/2017.
@@ -56,7 +57,7 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
                 .subscribe(result -> {
                     if (result.getData() != null) {
                         view.setCurrentLocationName(result.getData().getName());
-                        view.setCurrentLocationTemperature(String.valueOf(result.getData().getTemp()));
+                        view.setCurrentLocationTemperature(String.valueOf(result.getData().getMain().getTemp()));
                         view.hideProgressView();
                     } else {
                         view.showAlert("ADSError", "Request failed.", "OK", null, null, null);
@@ -82,12 +83,18 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
                 .flatMap(o -> interactor.getWeatherData(view.getSomeText()))
                 .doOnNext(result -> view.hideProgressView())
                 .subscribe(result -> {
-                    if (result.getData() != null) {
+                    if (result.isSuccess()) {
                         view.setCurrentLocationName(result.getData().getName());
-                        view.setCurrentLocationTemperature(String.valueOf(result.getData().getTemp()));
+                        view.setCurrentLocationTemperature(String.valueOf(result.getData().getMain().getTemp()));
                     } else {
                         view.showAlert(String.valueOf(result.getError().getErrorCode()), result.getError().getErrorMessage(), "OK", null, null, null);
                     }
+
+                    interactor.createPerson("asd");
+
+                    Person person = interactor.getPerson("asd");
+
+                    person.getName();
                 });
     }
 }
