@@ -4,18 +4,19 @@ package tr.com.adesso.weatherapp.utils.services.network.models;
 import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
+import org.parceler.Parcel.Serialization;
 
-@Parcel
+@Parcel(Serialization.BEAN)
 public class Weather {
 
     @SerializedName("id")
-    Integer id;
+    private Integer id;
     @SerializedName("main")
-    String main;
+    private String main;
     @SerializedName("description")
-    String description;
+    private String description;
     @SerializedName("icon")
-    String icon;
+    private String icon;
 
     public Integer getId() {
         return id;

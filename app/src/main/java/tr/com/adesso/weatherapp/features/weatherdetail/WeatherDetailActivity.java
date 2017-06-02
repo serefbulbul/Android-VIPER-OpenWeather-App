@@ -44,6 +44,8 @@ public class WeatherDetailActivity extends BaseActivity {
 
         setContentView(view.getRootView());
 
+        getExtras();
+
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
     }
@@ -60,5 +62,13 @@ public class WeatherDetailActivity extends BaseActivity {
         super.onPause();
 
         presenter.unsubscribe();
+    }
+
+    private void getExtras() {
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            WeatherData weatherData = Parcels.unwrap(extras.getParcelable(WEATHER_DATA));
+        }
     }
 }

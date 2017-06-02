@@ -4,36 +4,37 @@ package tr.com.adesso.weatherapp.utils.services.network.models;
 import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
+import org.parceler.Parcel.Serialization;
 
 import java.util.List;
 
-@Parcel
+@Parcel(Serialization.BEAN)
 public class WeatherData {
 
     @SerializedName("coord")
-    Coord coord;
+    private Coord coord;
     @SerializedName("weather")
-    List<Weather> weather = null;
+    private List<Weather> weather = null;
     @SerializedName("base")
-    String base;
+    private String base;
     @SerializedName("main")
-    Main main;
+    private Main main;
     @SerializedName("visibility")
-    Integer visibility;
+    private Integer visibility;
     @SerializedName("wind")
-    Wind wind;
+    private Wind wind;
     @SerializedName("clouds")
-    Clouds clouds;
+    private Clouds clouds;
     @SerializedName("dt")
-    Integer dt;
+    private Integer dt;
     @SerializedName("sys")
-    Sys sys;
+    private Sys sys;
     @SerializedName("id")
-    Integer id;
+    private Integer id;
     @SerializedName("name")
-    String name;
+    private String name;
     @SerializedName("cod")
-    Integer cod;
+    private Integer cod;
 
     public Coord getCoord() {
         return coord;

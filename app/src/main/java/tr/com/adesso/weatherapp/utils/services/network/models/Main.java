@@ -1,23 +1,25 @@
 
 package tr.com.adesso.weatherapp.utils.services.network.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
+import org.parceler.Parcel.Serialization;
 
-@Parcel
+@Parcel(Serialization.BEAN)
 public class Main {
 
     @SerializedName("temp")
-    Double temp;
+    private Double temp;
     @SerializedName("pressure")
-    Integer pressure;
+    private Integer pressure;
     @SerializedName("humidity")
-    Integer humidity;
+    private Integer humidity;
     @SerializedName("temp_min")
-    Double tempMin;
+    private Double tempMin;
     @SerializedName("temp_max")
-    Double tempMax;
+    private Double tempMax;
 
     public Double getTemp() {
         return temp;

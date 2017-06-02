@@ -1,17 +1,19 @@
 
 package tr.com.adesso.weatherapp.utils.services.network.models;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import org.parceler.Parcel;
+import org.parceler.Parcel.Serialization;
 
-@Parcel
+@Parcel(Serialization.BEAN)
 public class Wind {
 
     @SerializedName("speed")
-    Double speed;
+    private Double speed;
     @SerializedName("deg")
-    Integer deg;
+    private Integer deg;
 
     public Double getSpeed() {
         return speed;
