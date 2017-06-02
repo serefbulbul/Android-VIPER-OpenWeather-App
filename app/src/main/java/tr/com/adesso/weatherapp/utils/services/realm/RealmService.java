@@ -1,6 +1,8 @@
 package tr.com.adesso.weatherapp.utils.services.realm;
 
-import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
+import java.util.List;
+
+import tr.com.adesso.weatherapp.utils.services.realm.models.Bookmark;
 
 /**
  * Created by serefbulbul on 01/06/2017.
@@ -8,7 +10,9 @@ import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
 
 public interface RealmService {
 
-    void createPerson(String name);
+    void createBookmark(String name);
 
-    Person getPerson(String name);
+    Bookmark getBookmark(String name);
+
+    List<Bookmark> getAllBookmark();
 }

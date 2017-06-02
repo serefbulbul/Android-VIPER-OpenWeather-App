@@ -10,9 +10,9 @@ import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
-import tr.com.adesso.weatherapp.utils.services.models.Main;
-import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
-import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
+import tr.com.adesso.weatherapp.utils.services.network.models.Main;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Bookmark;
 
 /**
  * Created by serefbulbul on 30/05/2017.
@@ -59,10 +59,10 @@ public class HomePagePresenterTest {
         Mockito.when(view.onSomeButtonClick()).thenReturn(Observable.just(new Object()));
         Mockito.when(interactor.getWeatherData(Mockito.anyString())).thenReturn(Observable.just(result));
 
-        Person person = new Person();
-        person.setName("asd");
+        Bookmark bookmark = new Bookmark();
+        bookmark.setName("asd");
 
-        Mockito.when(interactor.getPerson(Mockito.anyString())).thenReturn(person);
+        Mockito.when(interactor.getPerson(Mockito.anyString())).thenReturn(bookmark);
 
         presenter.subscribe();
 

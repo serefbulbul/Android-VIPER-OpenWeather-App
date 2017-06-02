@@ -1,14 +1,15 @@
 
-package tr.com.adesso.weatherapp.utils.services.models;
+package tr.com.adesso.weatherapp.utils.services.network.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Clouds {
 
     @SerializedName("all")
-    @Expose
-    private Integer all;
+    Integer all;
 
     public Integer getAll() {
         return all;

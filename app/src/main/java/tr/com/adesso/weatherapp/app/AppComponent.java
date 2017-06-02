@@ -3,8 +3,8 @@ package tr.com.adesso.weatherapp.app;
 import android.content.Context;
 
 import dagger.Component;
-import tr.com.adesso.weatherapp.utils.services.NetworkModule;
-import tr.com.adesso.weatherapp.utils.services.NetworkService;
+import tr.com.adesso.weatherapp.utils.services.network.NetworkModule;
+import tr.com.adesso.weatherapp.utils.services.network.OpenWeatherService;
 import tr.com.adesso.weatherapp.utils.services.realm.RealmModule;
 import tr.com.adesso.weatherapp.utils.services.realm.RealmService;
 
@@ -18,7 +18,7 @@ public interface AppComponent {
 
     Context getContext();
 
-    NetworkService networkService();
+    OpenWeatherService networkService();
 
     RealmService realmService();
 }

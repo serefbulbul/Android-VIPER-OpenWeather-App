@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
 import tr.com.adesso.weatherapp.app.App;
+import tr.com.adesso.weatherapp.features.base.BaseActivity;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends BaseActivity {
 
     @Inject
     HomePageContract.Presenter presenter;

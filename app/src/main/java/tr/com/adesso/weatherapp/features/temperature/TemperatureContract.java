@@ -1,15 +1,15 @@
-package tr.com.adesso.weatherapp.features.weatherdetail;
+package tr.com.adesso.weatherapp.features.temperature;
 
 import tr.com.adesso.weatherapp.features.base.BaseContract;
 
 /**
- * Created by serefbulbul on 01/06/2017.
+ * Created by serefbulbul on 02/06/2017.
  */
 
-public class WeatherDetailContract {
+public class TemperatureContract {
 
     interface View extends BaseContract.View {
-
+        void prepareView();
     }
 
     interface Presenter extends BaseContract.Presenter {

@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BaseView;
+import tr.com.adesso.weatherapp.features.weatherdetail.WeatherDetailActivity;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
 
 /**
  * Created by batuhan on 25/05/2017.
@@ -67,5 +69,10 @@ public class HomePageView extends BaseView implements HomePageContract.View {
     @Override
     public Observable<Object> onSomeButtonClick() {
         return RxView.clicks(buttonSomeButton);
+    }
+
+    @Override
+    public void startWeatherDetail(WeatherData weatherData) {
+        context.startActivity(WeatherDetailActivity.newIntent(context, weatherData));
     }
 }

@@ -15,11 +15,11 @@ import io.reactivex.Observable;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.schedulers.Schedulers;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
-import tr.com.adesso.weatherapp.utils.services.NetworkService;
-import tr.com.adesso.weatherapp.utils.services.models.Main;
-import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
+import tr.com.adesso.weatherapp.utils.services.network.OpenWeatherService;
+import tr.com.adesso.weatherapp.utils.services.network.models.Main;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
 import tr.com.adesso.weatherapp.utils.services.realm.RealmService;
-import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Bookmark;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -28,7 +28,7 @@ import static junit.framework.Assert.assertEquals;
  */
 public class HomePageInteractorTest {
 
-    private NetworkService networkService;
+    private OpenWeatherService openWeatherService;
     private RealmService realmService;
     private HomePageInteractor interactor;
 
@@ -39,9 +39,9 @@ public class HomePageInteractorTest {
 
     @Before
     public void setUp() throws Exception {
-        networkService = Mockito.mock(NetworkService.class);
+        openWeatherService = Mockito.mock(OpenWeatherService.class);
         realmService = Mockito.mock(RealmService.class);
-        interactor = new HomePageInteractor(networkService, realmService);
+        interactor = new HomePageInteractor(openWeatherService, realmService);
     }
 
     @After
@@ -61,11 +61,11 @@ public class HomePageInteractorTest {
 
         weatherData.setMain(main);
 
-        Person person = new Person();
-        person.setName("asd");
+        Bookmark bookmark = new Bookmark();
+        bookmark.setName("asd");
 
-        Mockito.when(networkService.getWeatherData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(Observable.just(weatherData));
-        Mockito.when(realmService.getPerson(Mockito.anyString())).thenReturn(person);
+        Mockito.when(openWeatherService.getWeatherData(Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(Observable.just(weatherData));
+        Mockito.when(realmService.getBookmark(Mockito.anyString())).thenReturn(bookmark);
 
         final List<ServiceResult<WeatherData>> results = new ArrayList<>();
 

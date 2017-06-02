@@ -1,4 +1,4 @@
-package tr.com.adesso.weatherapp.utils.services;
+package tr.com.adesso.weatherapp.utils.services.network;
 
 import android.content.Context;
 
@@ -60,7 +60,7 @@ public class NetworkModule {
 
     @AppScope
     @Provides
-    public NetworkService openWeatherService(Retrofit retrofit) {
-        return retrofit.create(NetworkService.class);
+    public OpenWeatherService openWeatherService(Retrofit retrofit) {
+        return retrofit.create(OpenWeatherService.class);
     }
 }

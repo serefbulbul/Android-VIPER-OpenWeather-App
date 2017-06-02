@@ -1,29 +1,25 @@
 
-package tr.com.adesso.weatherapp.utils.services.models;
+package tr.com.adesso.weatherapp.utils.services.network.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Sys {
 
     @SerializedName("type")
-    @Expose
-    private Integer type;
+    Integer type;
     @SerializedName("id")
-    @Expose
-    private Integer id;
+    Integer id;
     @SerializedName("message")
-    @Expose
-    private Double message;
+    Double message;
     @SerializedName("country")
-    @Expose
-    private String country;
+    String country;
     @SerializedName("sunrise")
-    @Expose
-    private Integer sunrise;
+    Integer sunrise;
     @SerializedName("sunset")
-    @Expose
-    private Integer sunset;
+    Integer sunset;
 
     public Integer getType() {
         return type;

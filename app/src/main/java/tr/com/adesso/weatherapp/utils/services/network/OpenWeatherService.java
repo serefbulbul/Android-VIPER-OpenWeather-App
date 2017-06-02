@@ -1,16 +1,16 @@
-package tr.com.adesso.weatherapp.utils.services;
+package tr.com.adesso.weatherapp.utils.services.network;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
-import tr.com.adesso.weatherapp.utils.services.models.WeatherData;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
 import tr.com.adesso.weatherapp.utils.services.realm.models.MACFit;
 
 /**
  * Created by serefbulbul on 29/05/2017.
  */
 
-public interface NetworkService {
+public interface OpenWeatherService {
 
     @GET("weather?")
     Observable<WeatherData> getWeatherDataWithLatAndLon(@Query("lat") int lat,

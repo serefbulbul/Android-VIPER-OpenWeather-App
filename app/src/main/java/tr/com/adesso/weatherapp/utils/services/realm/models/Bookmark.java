@@ -7,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by serefbulbul on 01/06/2017.
  */
 
-public class Person extends RealmObject {
+public class Bookmark extends RealmObject {
 
     @PrimaryKey
     private long id;

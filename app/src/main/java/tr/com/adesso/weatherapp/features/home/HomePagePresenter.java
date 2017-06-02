@@ -9,7 +9,7 @@ import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BasePresenter;
 import tr.com.adesso.weatherapp.utils.Constants;
 import tr.com.adesso.weatherapp.utils.ValidationResult;
-import tr.com.adesso.weatherapp.utils.services.realm.models.Person;
+import tr.com.adesso.weatherapp.utils.services.realm.models.Bookmark;
 
 /**
  * Created by batuhan on 18/05/2017.
@@ -86,15 +86,16 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
                     if (result.isSuccess()) {
                         view.setCurrentLocationName(result.getData().getName());
                         view.setCurrentLocationTemperature(String.valueOf(result.getData().getMain().getTemp()));
+                        view.startWeatherDetail(result.getData());
                     } else {
                         view.showAlert(String.valueOf(result.getError().getErrorCode()), result.getError().getErrorMessage(), "OK", null, null, null);
                     }
 
                     interactor.createPerson("asd");
 
-                    Person person = interactor.getPerson("asd");
+                    Bookmark bookmark = interactor.getPerson("asd");
 
-                    person.getName();
+                    bookmark.getName();
                 });
     }
 }

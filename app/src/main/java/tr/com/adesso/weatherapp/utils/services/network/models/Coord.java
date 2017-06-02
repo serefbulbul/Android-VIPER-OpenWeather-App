@@ -1,16 +1,16 @@
 
-package tr.com.adesso.weatherapp.utils.services.models;
+package tr.com.adesso.weatherapp.utils.services.network.models;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
+@Parcel
 public class Coord {
 
     @SerializedName("lon")
-    @Expose
     private Double lon;
     @SerializedName("lat")
-    @Expose
     private Double lat;
 
     public Double getLon() {
