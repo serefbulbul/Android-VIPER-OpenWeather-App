@@ -68,7 +68,7 @@ public class WeatherDetailActivity extends BaseActivity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            WeatherData weatherData = Parcels.unwrap(extras.getParcelable(WEATHER_DATA));
+            presenter.setWeatherData(Parcels.unwrap(extras.getParcelable(WEATHER_DATA)));
         }
     }
 }

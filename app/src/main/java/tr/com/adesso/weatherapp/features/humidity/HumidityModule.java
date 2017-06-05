@@ -1,7 +1,6 @@
 package tr.com.adesso.weatherapp.features.humidity;
 
 import android.content.Context;
-import android.view.View;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,17 +13,15 @@ import dagger.Provides;
 public class HumidityModule {
 
     private final Context context;
-    private final View rootView;
 
-    public HumidityModule(Context context, View rootView) {
+    public HumidityModule(Context context) {
         this.context = context;
-        this.rootView = rootView;
     }
 
     @HumidityScope
     @Provides
     public HumidityContract.View view() {
-        return new HumidityView(context, rootView);
+        return new HumidityView(context);
     }
 
     @HumidityScope

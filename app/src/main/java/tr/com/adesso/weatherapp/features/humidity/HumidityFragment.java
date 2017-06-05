@@ -6,13 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.parceler.Parcels;
+
 import javax.inject.Inject;
 
-import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.app.App;
 import tr.com.adesso.weatherapp.features.base.BaseFragment;
-import tr.com.adesso.weatherapp.features.humidity.HumidityContract;
-import tr.com.adesso.weatherapp.features.humidity.HumidityModule;
+import tr.com.adesso.weatherapp.features.temperature.TemperatureFragment;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
 
 /**
  * Created by serefbulbul on 02/06/2017.
@@ -21,6 +22,7 @@ import tr.com.adesso.weatherapp.features.humidity.HumidityModule;
 public class HumidityFragment extends BaseFragment {
 
     private static final String TAB_INDEX = "TAB_INDEX";
+    private static final String WEATHER_DATA = "WEATHER_DATA";
 
     @Inject
     HumidityContract.View view;
@@ -28,10 +30,11 @@ public class HumidityFragment extends BaseFragment {
     @Inject
     HumidityContract.Presenter presenter;
 
-    public static HumidityFragment newInstance(int index) {
-        HumidityFragment fragment = new HumidityFragment();
+    public static TemperatureFragment newInstance(int index, WeatherData weatherData) {
+        TemperatureFragment fragment = new TemperatureFragment();
         Bundle args = new Bundle();
         args.putInt(TAB_INDEX, index);
+        args.putParcelable(WEATHER_DATA, Parcels.wrap(weatherData));
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,14 +44,12 @@ public class HumidityFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View viewRoot = inflater.inflate(R.layout.fragment_humidity, container, false);
-
         DaggerHumidityComponent.builder()
-                .humidityModule(new HumidityModule(getContext(), viewRoot))
+                .humidityModule(new HumidityModule(getContext()))
                 .appComponent(App.get(getActivity()).component())
                 .build().inject(this);
 
-        return viewRoot;
+        return view.getRootView();
     }
 
     @Override
@@ -56,6 +57,8 @@ public class HumidityFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.view.prepareView();
+
+        getExtras();
     }
 
     @Override
@@ -83,6 +86,14 @@ public class HumidityFragment extends BaseFragment {
             presenter.subscribe();
         } else {
             presenter.unsubscribe();
+        }
+    }
+
+    private void getExtras() {
+        Bundle extras = getArguments();
+
+        if (extras != null) {
+            presenter.setWeatherData(Parcels.unwrap(extras.getParcelable(WEATHER_DATA)));
         }
     }
 }

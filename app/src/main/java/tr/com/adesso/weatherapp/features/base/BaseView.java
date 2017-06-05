@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -62,7 +63,12 @@ public abstract class BaseView extends FrameLayout implements BaseContract.View 
     }
 
     @Override
-    public void showAlert(String title, String message, String negativeTitle, DialogInterface.OnClickListener negativeAction, String positiveTitle, DialogInterface.OnClickListener positiveAction) {
+    public void showAlert(Object title, Object message, Object negativeTitle, DialogInterface.OnClickListener negativeAction) {
+        AlertViewManager.getAlertDialog(context, title, message, negativeTitle, negativeAction).show();
+    }
+
+    @Override
+    public void showAlert(Object title, Object message, Object negativeTitle, DialogInterface.OnClickListener negativeAction, Object positiveTitle, DialogInterface.OnClickListener positiveAction) {
         AlertViewManager.getAlertDialog(context, title, message, negativeTitle, negativeAction, positiveTitle, positiveAction).show();
     }
 }

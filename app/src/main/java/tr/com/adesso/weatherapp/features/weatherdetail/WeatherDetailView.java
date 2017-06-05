@@ -14,6 +14,7 @@ import tr.com.adesso.weatherapp.features.base.BaseView;
 import tr.com.adesso.weatherapp.features.humidity.HumidityFragment;
 import tr.com.adesso.weatherapp.features.temperature.TemperatureFragment;
 import tr.com.adesso.weatherapp.utils.managers.FragmentNavigationManager;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
 
 /**
  * Created by serefbulbul on 01/06/2017.
@@ -24,22 +25,13 @@ public class WeatherDetailView extends BaseView implements WeatherDetailContract
     @BindView(R.id.bottom_navigation_weather_detail)
     BottomNavigationView bottomNavigationView;
 
-    private final FragmentNavigationManager fragmentNavigationManager;
+    private FragmentNavigationManager fragmentNavigationManager;
     
     public WeatherDetailView(Context context) {
         super(context);
 
         rootView = inflate(getContext(), R.layout.activity_weather_detail, this);
         ButterKnife.bind(this);
-
-        List<Fragment> fragmentList = new ArrayList(2) {{
-            add(TemperatureFragment.newInstance(0));
-            add(HumidityFragment.newInstance(1));
-        }};
-
-        fragmentNavigationManager = new FragmentNavigationManager(((WeatherDetailActivity) context).getSupportFragmentManager(), R.id.frame_layout_weather_detail, fragmentList);
-
-        configureNavigationBottomView();
     }
 
     private void configureNavigationBottomView() {
@@ -62,6 +54,18 @@ public class WeatherDetailView extends BaseView implements WeatherDetailContract
             return true;
         });
 
+    }
+
+    @Override
+    public void configureFragments(WeatherData weatherData) {
+        List<Fragment> fragmentList = new ArrayList(2) {{
+            add(TemperatureFragment.newInstance(0, weatherData));
+            add(HumidityFragment.newInstance(1, weatherData));
+        }};
+
+        fragmentNavigationManager = new FragmentNavigationManager(((WeatherDetailActivity) context).getSupportFragmentManager(), R.id.frame_layout_weather_detail, fragmentList);
+
+        configureNavigationBottomView();
     }
 
     public void switchTab(int index) {

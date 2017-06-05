@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.parceler.Parcels;
+
 import javax.inject.Inject;
 
-import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.app.App;
 import tr.com.adesso.weatherapp.features.base.BaseFragment;
-
-import static java.security.AccessController.getContext;
+import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
 
 /**
  * Created by serefbulbul on 02/06/2017.
@@ -21,6 +21,7 @@ import static java.security.AccessController.getContext;
 public class TemperatureFragment extends BaseFragment {
 
     private static final String TAB_INDEX = "TAB_INDEX";
+    private static final String WEATHER_DATA = "WEATHER_DATA";
 
     @Inject
     TemperatureContract.View view;
@@ -28,10 +29,11 @@ public class TemperatureFragment extends BaseFragment {
     @Inject
     TemperatureContract.Presenter presenter;
 
-    public static TemperatureFragment newInstance(int index) {
+    public static TemperatureFragment newInstance(int index, WeatherData weatherData) {
         TemperatureFragment fragment = new TemperatureFragment();
         Bundle args = new Bundle();
         args.putInt(TAB_INDEX, index);
+        args.putParcelable(WEATHER_DATA, Parcels.wrap(weatherData));
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,14 +43,12 @@ public class TemperatureFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        View viewRoot = inflater.inflate(R.layout.fragment_temperature, container, false);
-
         DaggerTemperatureComponent.builder()
-                .temperatureModule(new TemperatureModule(getContext(), viewRoot))
+                .temperatureModule(new TemperatureModule(getContext()))
                 .appComponent(App.get(getActivity()).component())
                 .build().inject(this);
 
-        return viewRoot;
+        return view.getRootView();
     }
 
     @Override
@@ -56,6 +56,8 @@ public class TemperatureFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         this.view.prepareView();
+
+        getExtras();
     }
 
     @Override
@@ -83,6 +85,14 @@ public class TemperatureFragment extends BaseFragment {
             presenter.subscribe();
         } else {
             presenter.unsubscribe();
+        }
+    }
+
+    private void getExtras() {
+        Bundle extras = getArguments();
+
+        if (extras != null) {
+            presenter.setWeatherData(Parcels.unwrap(extras.getParcelable(WEATHER_DATA)));
         }
     }
 }

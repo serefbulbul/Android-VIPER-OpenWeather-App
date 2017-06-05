@@ -14,17 +14,15 @@ import dagger.Provides;
 public class TemperatureModule {
 
     private final Context context;
-    private final View rootView;
 
-    public TemperatureModule(Context context, View rootView) {
+    public TemperatureModule(Context context) {
         this.context = context;
-        this.rootView = rootView;
     }
 
     @TemperatureScope
     @Provides
     public TemperatureContract.View view() {
-        return new TemperatureView(context, rootView);
+        return new TemperatureView(context);
     }
 
     @TemperatureScope

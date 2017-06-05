@@ -2,6 +2,7 @@ package tr.com.adesso.weatherapp.features.home;
 
 import io.reactivex.Observable;
 import tr.com.adesso.weatherapp.features.base.BaseInteractor;
+import tr.com.adesso.weatherapp.utils.Constants;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
 import tr.com.adesso.weatherapp.utils.services.network.OpenWeatherService;
 import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;
@@ -24,7 +25,7 @@ public class HomePageInteractor extends BaseInteractor implements HomePageContra
 
     @Override
     public Observable<ServiceResult<WeatherData>> getWeatherData(String city) {
-        final Observable<WeatherData> london = openWeatherService.getWeatherData(city, "4abf3b21b72f324add11d4445f40f32a", "metric");
+        final Observable<WeatherData> london = openWeatherService.getWeatherData(city, Constants.OPEN_WEATHER_API_KEY, "metric");
 
         return Observable.create(o ->
                 london.subscribe(weatherData -> {

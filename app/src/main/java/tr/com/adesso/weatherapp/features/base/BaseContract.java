@@ -22,7 +22,9 @@ public interface BaseContract {
 
         void hideProgressView();
 
-        void showAlert(String title, String message, String negativeTitle, DialogInterface.OnClickListener negativeAction, String positiveTitle, DialogInterface.OnClickListener positiveAction);
+        void showAlert(Object title, Object message, Object negativeTitle, DialogInterface.OnClickListener negativeAction, Object positiveTitle, DialogInterface.OnClickListener positiveAction);
+
+        void showAlert(Object title, Object message, Object negativeTitle, DialogInterface.OnClickListener negativeAction);
     }
 
     interface Presenter {

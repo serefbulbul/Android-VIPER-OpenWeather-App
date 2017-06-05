@@ -17,8 +17,8 @@ import tr.com.adesso.weatherapp.utils.services.realm.models.Bookmark;
 
 public class HomePagePresenter extends BasePresenter implements HomePageContract.Presenter {
 
-    private HomePageContract.View view;
-    private HomePageContract.Interactor interactor;
+    private final HomePageContract.View view;
+    private final HomePageContract.Interactor interactor;
     private Observable<ValidationResult> someTextValidation;
 
     public HomePagePresenter(HomePageContract.View view, HomePageContract.Interactor interactor) {
@@ -55,12 +55,12 @@ public class HomePagePresenter extends BasePresenter implements HomePageContract
         interactor.getWeatherData("London")
                 .doOnNext(presenterModel -> view.showProgressView())
                 .subscribe(result -> {
-                    if (result.getData() != null) {
+                    if (result.isSuccess()) {
                         view.setCurrentLocationName(result.getData().getName());
                         view.setCurrentLocationTemperature(String.valueOf(result.getData().getMain().getTemp()));
                         view.hideProgressView();
                     } else {
-                        view.showAlert("ADSError", "Request failed.", "OK", null, null, null);
+                        view.showAlert("ADSError", "Request failed.", "OK", null);
                     }
                 }, throwable -> {
 
