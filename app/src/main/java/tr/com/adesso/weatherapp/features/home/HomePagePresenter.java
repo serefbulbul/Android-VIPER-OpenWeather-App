@@ -7,7 +7,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.features.base.BasePresenter;
-import tr.com.adesso.weatherapp.utils.Constants;
+import tr.com.adesso.weatherapp.utils.constants.Constants;
 import tr.com.adesso.weatherapp.utils.ValidationResult;
 import tr.com.adesso.weatherapp.utils.services.realm.models.Bookmark;
 

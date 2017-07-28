@@ -4,11 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import tr.com.adesso.weatherapp.R;
 import tr.com.adesso.weatherapp.utils.managers.AlertViewManager;
 import tr.com.adesso.weatherapp.utils.managers.ProgressViewManager;
 
@@ -28,6 +28,11 @@ public abstract class BaseView extends FrameLayout implements BaseContract.View 
         this.context = context;
 
         progressViewManager = new ProgressViewManager(context);
+    }
+
+    @Override
+    public void setTitle(String title) {
+        ((Activity) context).setTitle(title);
     }
 
     @Override

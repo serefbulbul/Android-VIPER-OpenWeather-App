@@ -12,6 +12,8 @@ public interface BaseContract {
     interface View {
         android.view.View getRootView();
 
+        void setTitle(String title);
+
         void showActionBar(Context context);
 
         void hideActionBar(Context context);

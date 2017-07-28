@@ -14,7 +14,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 import tr.com.adesso.weatherapp.app.AppScope;
-import tr.com.adesso.weatherapp.utils.Constants;
+import tr.com.adesso.weatherapp.utils.constants.Constants;
 
 /**
  * Created by serefbulbul on 29/05/2017.

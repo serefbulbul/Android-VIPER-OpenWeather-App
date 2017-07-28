@@ -8,7 +8,7 @@ import android.util.Log;
 import io.realm.Realm;
 import timber.log.Timber;
 import tr.com.adesso.weatherapp.BuildConfig;
-import tr.com.adesso.weatherapp.utils.Constants;
+import tr.com.adesso.weatherapp.utils.constants.Constants;
 
 /**
  * Created by serefbulbul on 29/05/2017.

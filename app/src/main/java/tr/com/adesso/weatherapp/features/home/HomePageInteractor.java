@@ -2,7 +2,7 @@ package tr.com.adesso.weatherapp.features.home;
 
 import io.reactivex.Observable;
 import tr.com.adesso.weatherapp.features.base.BaseInteractor;
-import tr.com.adesso.weatherapp.utils.Constants;
+import tr.com.adesso.weatherapp.utils.constants.Constants;
 import tr.com.adesso.weatherapp.utils.ServiceResult;
 import tr.com.adesso.weatherapp.utils.services.network.OpenWeatherService;
 import tr.com.adesso.weatherapp.utils.services.network.models.WeatherData;

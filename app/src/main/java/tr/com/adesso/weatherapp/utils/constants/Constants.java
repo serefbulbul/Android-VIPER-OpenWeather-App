@@ -1,4 +1,4 @@
-package tr.com.adesso.weatherapp.utils;
+package tr.com.adesso.weatherapp.utils.constants;
 
 /**
  * Created by serefbulbul on 29/05/2017.
